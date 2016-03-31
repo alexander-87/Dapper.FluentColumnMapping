@@ -1,7 +1,11 @@
 {
   "version": "1.0.0-*",
-  "description": "Dapper.FluentColumnMapping",
+  "title": "Dapper.FluentColumnMapping",
+  "summary": "Fluent Object-Column Mappings for use with Dapper",
+  "description": "Fluent Object-Column Mappings for use with Dapper\r\n\r\nNOTE: This is not a part of the official Dapper project.",
   "authors": [ "BitWiseGuy" ],
+  "copyright": "Copyright Alexander",
+  "requireLicenseAcceptance": false,
   "tags": [ "dapper fluent mapping mapper" ],
   "projectUrl": "https://github.com/alexander-87/Dapper.FluentColumnMapping",
   "licenseUrl": "https://opensource.org/licenses/MIT",
