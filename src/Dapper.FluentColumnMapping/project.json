@@ -1,0 +1,24 @@
+{
+  "version": "1.0.0-*",
+  "description": "Dapper.FluentColumnMapping",
+  "authors": [ "BitWiseGuy" ],
+  "tags": [ "dapper fluent mapping mapper" ],
+  "projectUrl": "https://github.com/alexander-87/Dapper.FluentColumnMapping",
+  "licenseUrl": "https://opensource.org/licenses/MIT",
+  "frameworks": {
+    "net451": { },
+    "dotnet5.4": {
+      "dependencies": {
+        "Microsoft.CSharp": "4.0.1-beta-23516",
+        "System.Collections": "4.0.11-beta-23516",
+        "System.Linq": "4.0.1-beta-23516",
+        "System.Runtime": "4.0.21-beta-23516",
+        "System.Threading": "4.0.11-beta-23516"
+      }
+    }
+  },
+  "dependencies": {
+    "Dapper": "1.50.0-beta8",
+    "System.Reflection.TypeExtensions": "4.1.0-beta-23516"
+  }
+}
