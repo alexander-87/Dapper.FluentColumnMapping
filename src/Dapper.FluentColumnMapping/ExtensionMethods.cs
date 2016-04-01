@@ -39,6 +39,7 @@
             if (mappings == null)
                 throw new ArgumentNullException(nameof(mappings));
 
+            // TODO: Consider returning the MappedType instance if it's already registered vs. throwing an exception.
             var mappedType = new MappedType<T>();
             mappings.Mappings.Add(typeof(T), mappedType);
 
@@ -128,6 +129,41 @@
 
             var message = $"The {typeof(T)} type has not been registered with the {typeof(ColumnMappingCollection).Name}.";
             throw new System.Collections.Generic.KeyNotFoundException(message);
+        }
+
+        /// <summary>Copies the column mappings mapped from one <see cref="Type"/> to another.</summary>
+        /// <typeparam name="T">The <see cref="Type"/> associated with the column mapping.</typeparam>
+        /// <param name="destinationMappedType">
+        ///     An instance of <see cref="MappedType{T}"/> where the column mappings are to be copied to.
+        /// </param>
+        /// <param name="sourceMappedType">
+        ///     An instance of <see cref="IMappedType"/> containing the column mappings that are to be copied.
+        /// </param>
+        /// <returns>
+        ///     The instance of <see cref="MappedType{T}"/> provided via the <paramref name="destinationMappedType"/>
+        ///     parameter including copies of each of the column mappings defined in the <paramref name="mappings"/> parameter.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        ///     Thrown if the <paramref name="destinationMappedType"/> or
+        ///     <paramref name="sourceMappedType"/> parameter is <c>null</c>.
+        /// </exception>
+        public static MappedType<T> CopyMappingsFrom<T>(this MappedType<T> destinationMappedType, IMappedType sourceMappedType)
+        {
+            if (destinationMappedType == null)
+                throw new ArgumentNullException(nameof(destinationMappedType));
+
+            if (sourceMappedType == null)
+                throw new ArgumentNullException(nameof(sourceMappedType));
+
+            foreach (var mapping in sourceMappedType.MappedColumns)
+            {
+                if (destinationMappedType.MappedColumns.ContainsKey(mapping.Key))
+                    destinationMappedType.MappedColumns[mapping.Key] = mapping.Value;
+                else
+                    destinationMappedType.MappedColumns.Add(mapping.Key, mapping.Value);
+            }
+
+            return destinationMappedType;
         }
 
         /// <summary>Adds a property/field to the mapping.</summary>
