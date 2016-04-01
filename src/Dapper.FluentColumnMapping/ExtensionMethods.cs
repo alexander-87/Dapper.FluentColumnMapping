@@ -153,6 +153,37 @@
 
             return columnMapping.MappedType.MapProperty(propertyName);
         }
+        
+        /// <summary>Adds a property/field to the mapping.</summary>
+        /// <typeparam name="T">The <see cref="Type"/> associated with the column mapping.</typeparam>
+        /// <param name="mappedType">
+        ///     An instance of <see cref="IMappedType{T}"/> containing the current mapping.
+        /// </param>
+        /// <param name="propertyName">
+        ///     The name of the property/field to add to the mapping.
+        /// </param>
+        /// <returns>
+        ///     An instance of <see cref="PropertyMapping{T}"/> mapped to the property/field
+        ///     specified in the <paramref name="propertyName"/> parameter.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        ///     Thrown if the <paramref name="mappedType"/> or <paramref name="propertyName"/> parameter
+        ///     is <c>null</c>, an empty string, or only consists of white-space characters.
+        /// </exception>
+        public static PropertyMapping<T> MapProperty<T>(this IMappedType<T> mappedType, string propertyName)
+        {
+            if (mappedType == null)
+                throw new ArgumentNullException(nameof(mappedType));
+
+            if (String.IsNullOrWhiteSpace(propertyName))
+                throw new ArgumentNullException(nameof(propertyName));
+
+            var propertyMapping = new PropertyMapping<T>() as IPropertyMapping<T>;
+            propertyMapping.MappedType = mappedType;
+            propertyMapping.PropertyName = propertyName;
+
+            return propertyMapping as PropertyMapping<T>;
+        }
 
         /// <summary>Adds a property/field to the mapping.</summary>
         /// <typeparam name="T">The <see cref="Type"/> associated with the column mapping.</typeparam>
@@ -177,11 +208,7 @@
             if (propertyName == null)
                 throw new ArgumentNullException(nameof(propertyName));
 
-            var propertyMapping = new PropertyMapping<T>() as IPropertyMapping<T>;
-            propertyMapping.MappedType = mappedType;
-            propertyMapping.PropertyName = GetMemberName(propertyName);
-
-            return propertyMapping as PropertyMapping<T>;
+            return mappedType.MapProperty(GetMemberName(propertyName));
         }
 
         /// <summary>Maps the specified column name to the provided property/field.</summary>
