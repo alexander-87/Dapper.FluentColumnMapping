@@ -87,10 +87,47 @@
         /// </exception>
         public static MappedType<T> GetTypeMapping<T>(this ColumnMappingCollection mappings)
         {
+            return GetTypeMapping<T>(mappings, false);
+        }
+
+        /// <summary>
+        ///     Gets the <see cref="MappedType{T}"/> for a specific <see cref="Type"/>
+        ///     that has a mapping registered with a <see cref="ColumnMappingCollection"/>.
+        /// </summary>
+        /// <typeparam name="T">
+        ///     The registered <see cref="Type"/> to get the column mappings for.
+        /// </typeparam>
+        /// <param name="mappings">
+        ///     The instance of <see cref="ColumnMappingCollection"/> containing the registered instance of
+        ///     <see cref="MappedType{T}"/> associated with the <see cref="Type"/> specified for <typeparamref name="T"/>.
+        /// </param>
+        /// <param name="throwIfTypeNotMapped"></param>
+        /// <returns>
+        ///     The <see cref="MappedType{T}"/> that has been registered with the
+        ///     <see cref="ColumnMappingCollection"/> for the <see cref="Type"/>
+        ///     specified for <typeparamref name="T"/>.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        ///     Thrown if the <paramref name="mappings"/> parameter is <c>null</c>.
+        /// </exception>
+        /// <exception cref="System.Collections.Generic.KeyNotFoundException">
+        ///     Thrown if the <paramref name="throwIfTypeNotMapped"/> parameter is set to <c>true</c>,
+        ///     and if the <see cref="Type"/> specified for <typeparamref name="T"/> has not been
+        ///     registered with the <see cref="ColumnMappingCollection"/>.
+        /// </exception>
+        public static MappedType<T> GetTypeMapping<T>(this ColumnMappingCollection mappings, bool throwIfTypeNotMapped)
+        {
             if (mappings == null)
                 throw new ArgumentNullException(nameof(mappings));
 
-            return mappings.Mappings[typeof(T)] as MappedType<T>;
+            if (mappings.TypeHasBeenMapped<T>())
+                return mappings.Mappings[typeof(T)] as MappedType<T>;
+
+            if (!throwIfTypeNotMapped)
+                return null;
+
+            var message = $"The {typeof(T)} type has not been registered with the {typeof(ColumnMappingCollection).Name}.";
+            throw new System.Collections.Generic.KeyNotFoundException(message);
         }
 
         /// <summary>Adds a property/field to the mapping.</summary>
