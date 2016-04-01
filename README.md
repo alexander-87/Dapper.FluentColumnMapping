@@ -5,7 +5,7 @@ Fluent Object-Column Mappings for use with [Dapper]
 
 ## How to use
 
-1. Install the `Dapper.FluentColumnMapping` package from [NuGet](https://www.nuget.org/packages/Dapper.FluentColumnMapping/).
+Install the `Dapper.FluentColumnMapping` package from [NuGet](https://www.nuget.org/packages/Dapper.FluentColumnMapping/).
 
 ```c#
 // Create yourself a new mapping collection
@@ -36,6 +36,9 @@ using (var dbConnection = CreateNewConnection())
 
 > **Note:** Typically, you only have to configure and register your mappings once, as Dapper keeps the mappings using a static object.
 
+## License
+
+This project is licensed under The MIT License; please refer to the [LICENSE](LICENSE) file for additional information.
 
 
 <!-- Links -->
