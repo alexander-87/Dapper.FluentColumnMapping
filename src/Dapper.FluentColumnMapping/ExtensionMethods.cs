@@ -102,7 +102,10 @@
         ///     The instance of <see cref="ColumnMappingCollection"/> containing the registered instance of
         ///     <see cref="MappedType{T}"/> associated with the <see cref="Type"/> specified for <typeparamref name="T"/>.
         /// </param>
-        /// <param name="throwIfTypeNotMapped"></param>
+        /// <param name="throwIfTypeNotMapped">
+        ///     When set to <c>true</c>, an exception will be thrown if the <see cref="Type"/> specified for
+        ///     <typeparamref name="T"/> has not been registered with the <see cref="ColumnMappingCollection"/>.
+        /// </param>
         /// <returns>
         ///     The <see cref="MappedType{T}"/> that has been registered with the
         ///     <see cref="ColumnMappingCollection"/> for the <see cref="Type"/>
