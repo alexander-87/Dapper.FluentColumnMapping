@@ -1,6 +1,7 @@
 ﻿namespace Dapper.FluentColumnMapping
 {
     using System;
+    using System.Collections.Generic;
 
     public interface IMappedType<T> : IMappedType
     {
@@ -23,5 +24,8 @@
         ///     <c>True</c> if a property/field has been mapped to the specified column; otherwise, <c>false</c>.
         /// </returns>
         bool ColumnHasBeenMapped(string columnName);
+
+        /// <summary>Gets the collection of <see cref="KeyValuePair{TKey, TValue}"/> property to column mappings.</summary>
+        IDictionary<string, string> MappedColumns { get; }
     }
 }
