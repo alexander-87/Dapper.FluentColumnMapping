@@ -45,6 +45,19 @@
             return mappedType;
         }
 
+        /// <summary>
+        ///     Gets a <see cref="bool"/> value indicating whether a given <see cref="Type"/>
+        ///     has been registered with a <see cref="ColumnMappingCollection"/>.
+        /// </summary>
+        /// <typeparam name="T">The <see cref="Type"/> to check for.</typeparam>
+        /// <param name="mappings">The instance of <see cref="ColumnMappingCollection"/> to check.</param>
+        /// <returns>
+        ///     A <see cref="bool"/> value indicating whether a given <see cref="Type"/>
+        ///     has been registered with a <see cref="ColumnMappingCollection"/>.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        ///     Thrown if the <paramref name="mappings"/> parameter is <c>null</c>.
+        /// </exception>
         public static bool TypeHasBeenMapped<T>(this ColumnMappingCollection mappings)
         {
             if (mappings == null)
@@ -53,6 +66,25 @@
             return mappings.Mappings.ContainsKey(typeof(T));
         }
 
+        /// <summary>
+        ///     Gets the <see cref="MappedType{T}"/> for a specific <see cref="Type"/>
+        ///     that has a mapping registered with a <see cref="ColumnMappingCollection"/>.
+        /// </summary>
+        /// <typeparam name="T">
+        ///     The registered <see cref="Type"/> to get the column mappings for.
+        /// </typeparam>
+        /// <param name="mappings">
+        ///     The instance of <see cref="ColumnMappingCollection"/> containing the registered instance of
+        ///     <see cref="MappedType{T}"/> associated with the <see cref="Type"/> specified for <typeparamref name="T"/>.
+        /// </param>
+        /// <returns>
+        ///     If the <see cref="Type"/> specified for <typeparamref name="T"/> has
+        ///     been registered with the <see cref="ColumnMappingCollection"/>, then
+        ///     the registered <see cref="MappedType{T}"/>; otherwise, <c>null</c>.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        ///     Thrown if the <paramref name="mappings"/> parameter is <c>null</c>.
+        /// </exception>
         public static MappedType<T> GetTypeMapping<T>(this ColumnMappingCollection mappings)
         {
             if (mappings == null)
